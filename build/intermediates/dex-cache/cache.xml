@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-23.4.0_6f8172ebaf3b33c285b6a5190c58e110b052d7e1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.0_780f472cc4a3370e6ced501884f4686d4a155b31/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.0_566bfc666cc37877011087d72a730bf801dc5027/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-9.8.0_870d06e5fc2ba53e8a40e748fb103ac324db2a69/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="aee64634871d88a419d59eb743c1258a60f19700">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.0_9b0342dc39fb0c717f4056a738b055a7706dca48/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-module/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3f8f779a22cbb4c4d0759467a4f1011bb5252970">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-module-9.8.0_ed90b192f6a389d1ff3b191925e477c495ec85f1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/9.6.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1f4bb2577a30d0b3268fed038ed59230709ad593">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-9.6.0_08d13dca1b8c85cb09eb6cec39d6b73dd5c76b58/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6b6f292b8b951dcf2ecf2b20853e3eabc7d65c48">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-9.8.0_eb660483525e4faa0807c7d4119666edee16f747/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-9.8.0_e294ce7dbf78ebb11c1648a397235f71ce188a94/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.0_43e91271ce0f38d7bc01823bb6aab676ea9e598e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/design/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-23.4.0_fad51311aca6d63563559b2ec4a517c335425012/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-9.8.0_ba7b04f9fbbc3183885e234b9b029823ae82bded/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-9.8.0_1176002c0db153e9e439c99c3dae73825383e85a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="9ff04cc3470178a44512624036751a803418c2ca">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-9.8.0_3a027421f5c3eaecab5d945785de218b0b10ea03/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-tasks-1.4.0_00b2de839c5df4fa60a510c02dbcd65da0813847/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.0_237ece0a16f090ecf57fb04a1144180eb22befac/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a2d00314f81cb497c3f28c61ffba1b3ff0f8b2df">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_0676db0a94d3583f929a794d1ce4ebd1b7b537b8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="190a642ba16d1421296a4d794606279b80039c59">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-9.8.0_9c5f1d62b8c4d3805e1a209b144264abb21a7416/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth-common/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4438b1a7848a7c571122ba618aa1304514aabee6">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-common-9.8.0_4330d0f206c610f7d984ecf05600b27a0098272d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="03df48d3713661d66ad024b1e406259a4c26fcac">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-9.8.0_ba41f3ba6c5045399993b303699cef635b2cfdc3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.0_670778bce75b8c3cf88b4b1ad0363e7b7ea590ec/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="083f6a747724f219ebe7fc6f48784a89df6ca4de">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_1dfb13633474f1bf79140969567252fbd016e564/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.14.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="42a3ae86dd3ae2876d3e95c2e6e104ae57a50a65">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.facebook.android-facebook-android-sdk-4.14.1_9605be5ec92d5f4ab11b46ee0761fa5ec85e03ca/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5ffe8867f51cfc726e9fb21db1e5b6962ebf25a0">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-messaging-9.8.0_dfbc1d563007c59543bc15e72b2bb8b10011b5db/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.firebaseui/firebase-ui-auth/0.6.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8ac09931704b91e7b4d281f5e34b3b006b628c22">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.firebaseui-firebase-ui-auth-0.6.0_b582712132f020ed8104fe5ed1f6d26199634ed5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth-base/9.6.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0ef21408e3142ffbfbd4a7ec1762c3325c6c386c">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-base-9.6.0_0826dff3a4e4093517fb22d778373a10d54d2112/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.0_a4d499162b05b768e25ba746caa600e595e3dbe4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6fb6ac3e8d3b9013819920d9ea11f3803c4c0033">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.0_6c389e8105e1bd2cabfaa958e32592a6deb985ec/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.0_1891da114cfce0caf11963945025708b41ea13a0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f02263e35e52668dd17b73bf961437e3d562b35f">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.0_d3b6173edbb6b099018ae5ebe7c018e7f17bd202/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-database-connection/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5f47ede9561595584dca71104baa0fecb36dda87">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-database-connection-9.8.0_34b225821cbbfdcdaef03170c2f3e174ed2e428d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.google.firebase/firebase-auth/9.8.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="15e59454416c6341bd3ed2533b585cd340682dd1">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-auth-9.8.0_6e840a75cbff8f193e73381386bcfca933639850/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/bolts-applinks-1.4.0_4063d059e1b62a7e2326b766794bc02e4a9dd531/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.0_993df899c6baeea52483fe6a603cd1efe3bed1cc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2d1eaa9e0b98f8fc4c2b989d9b30d4f1480648ac">
+        <dex dex="/home/olga/AndroidStudioProjects/TestChatApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-customtabs-23.4.0_88b50cf4a4f2175a8704b76df3afc88345a599ea/classes.dex" />
+    </item>
+
+</items>
