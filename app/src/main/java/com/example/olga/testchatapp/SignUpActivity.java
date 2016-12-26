@@ -42,7 +42,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         userSettings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = userSettings.edit();
-        editor.putString(USERNAME, userNameField.getText().toString());
+        editor.putString(USERNAME, userNameField.getText().toString().trim());
+        editor.putString("email", emailField.getText().toString().trim());
         editor.commit();
 
         btnSignUp.setOnClickListener(this);

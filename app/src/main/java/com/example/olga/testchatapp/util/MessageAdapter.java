@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.example.olga.testchatapp.R;
 import com.example.olga.testchatapp.model.Message;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -20,14 +19,25 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>{
 
     private List<Message> messageList;
+    private int author;
 
-    public MessageAdapter(List<Message> messageList) {
+    public MessageAdapter(List<Message> messageList, int author) {
         this.messageList = messageList;
+        this.author = author;
     }
 
     @Override
-    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_item, parent, false);
+    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int author) {
+        int layout = -1;
+        switch (author) {
+            case 0:
+                layout = R.layout.message_item_author;
+                break;
+            case 1:
+                layout = R.layout.message_item_others;
+                break;
+        }
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         MessageViewHolder messageVH = new MessageViewHolder(itemView);
         return messageVH;
     }

@@ -48,11 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-//    private void addItem(int position, Message currentMessage) {
-//        MessageApp.getInstance().setMessageList(position, currentMessage);
-//        messageAdapter.notifyItemInserted(position);
-//    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -75,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messageRecycler = (RecyclerView) findViewById(R.id.messageRecycler);
         messageLM = new LinearLayoutManager(this);
         messageRecycler.setLayoutManager(messageLM );
-        messageAdapter = new MessageAdapter(MessageApp.getInstance().getMessageList());
+        messageAdapter = new MessageAdapter(MessageApp.getInstance().getMessageList(), );
         messageRecycler.setAdapter(messageAdapter);
 
         Log.d("AAAAAAAAAAaa", "Messages in MAIN ACTIVITY : " + MessageApp.getInstance().getMessageList().size());
@@ -104,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Message messageToSend = new Message(userName,
                 messageField.getText().toString(),
                 Calendar.getInstance().getTimeInMillis());
+
+
 
         FirebaseDatabase.getInstance()
                 .getReference()
