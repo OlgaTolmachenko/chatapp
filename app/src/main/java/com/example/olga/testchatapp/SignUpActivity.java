@@ -37,18 +37,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
         userAuth = new UserAuth(this);
-        userAuth.isUserExists();
+        userAuth.getCurrentFirebaseUser();
+
 
         userSettings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = userSettings.edit();
         editor.putString(USERNAME, userNameField.getText().toString());
         editor.commit();
-
-
-        if (userAuth.isUserExists()) {
-            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
 
         btnSignUp.setOnClickListener(this);
     }

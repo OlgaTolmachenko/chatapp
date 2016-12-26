@@ -57,7 +57,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             super(itemView);
             userName = (TextView) itemView.findViewById(R.id.userName);
             message = (TextView) itemView.findViewById(R.id.messageText);
-            time = (TextView) itemView.findViewById(R.id.time);
+            time = (TextView) itemView.findViewById(R.id.messageTime);
         }
     }
 }

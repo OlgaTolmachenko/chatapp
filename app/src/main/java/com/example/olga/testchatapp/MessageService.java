@@ -1,9 +1,14 @@
 package com.example.olga.testchatapp;
 
+import android.content.Intent;
+import android.os.Parcelable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 
 import com.example.olga.testchatapp.model.Message;
+import com.example.olga.testchatapp.util.Constants;
+import com.example.olga.testchatapp.util.MessageAdapter;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -13,14 +18,16 @@ import java.util.List;
 public class MessageService extends FirebaseMessagingService {
 
     private final String  TAG = getClass().getSimpleName();
+    private MessageAdapter messageAdapter;
 
-    private static List<Message> messageList;
+    private List<Message> messageList;
 
     public MessageService() {
         messageList = new ArrayList<>();
+        messageAdapter = new MessageAdapter(messageList);
     }
 
-    public static List<Message> getMessageList() {
+    public List<Message> getMessageList() {
         return messageList;
     }
 
@@ -28,16 +35,25 @@ public class MessageService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        // TODO(developer): Handle FCM messages here.
-        // If the application is in the foreground handle both data and notification messages here.
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-        remoteMessage.getSentTime();
         Message incomingMessage = new Message(remoteMessage.getFrom(), remoteMessage.getNotification().getBody(), remoteMessage.getSentTime());
 
-        messageList.add(incomingMessage);
+
+        Intent intent = new Intent("SEND_MESSAGE");
+        intent.putExtra(Constants.USERNAME, incomingMessage.getUserName());
+        intent.putExtra("message", incomingMessage.getMessage());
+        intent.putExtra("time", incomingMessage.getMessageTime());
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
+
+//        MessageApp.getInstance().setMessageList(incomingMessage);
+
+        Log.d("AAAAAAAAAAaa", "Messages in SERVICE : " + MessageApp.getInstance().getMessageList().size());
+
+
+        for (Message message : MessageApp.getInstance().getMessageList()) {
+            Log.d("AAAAAAAAAAaa", "Current message: " + message.getMessage());
+        }
 
     }
 }

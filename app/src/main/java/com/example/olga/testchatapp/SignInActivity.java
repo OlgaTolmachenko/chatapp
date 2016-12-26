@@ -33,11 +33,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         passwordField = (EditText) findViewById(R.id.password);
 
         userAuth = new UserAuth(this);
-
-        if (userAuth.isUserExists()) {
-            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+        userAuth.getCurrentFirebaseUser();
+//        if (userAuth.isUserExists()) {
+//            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        }
 
         btnSignIn.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
