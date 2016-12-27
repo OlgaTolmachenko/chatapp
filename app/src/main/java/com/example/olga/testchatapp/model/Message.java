@@ -10,6 +10,9 @@ public class Message {
     private String message;
     private long messageTime;
 
+    public Message() {
+    }
+
     public Message(String userName, String message, long messageTime) {
         this.userName = userName;
         this.message = message;

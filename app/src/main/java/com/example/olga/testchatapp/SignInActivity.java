@@ -19,7 +19,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private Button btnSignUp;
     private EditText emailField;
     private EditText passwordField;
-
     private UserAuth userAuth;
 
     @Override
@@ -34,10 +33,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         userAuth = new UserAuth(this);
         userAuth.getCurrentFirebaseUser();
-//        if (userAuth.isUserExists()) {
-//            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-//            startActivity(intent);
-//        }
 
         btnSignIn.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
@@ -59,7 +54,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSignIn:
-                userAuth.signIn(emailField.getText().toString().trim(), passwordField.toString().trim());
+                userAuth.signIn(emailField.getText().toString().trim(), passwordField.getText().toString().trim());
                 break;
             case R.id.btnSignUp:
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));

@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 /**
  * Created by olga on 23.12.16.
@@ -48,10 +49,10 @@ public class UserAuth {
         };
         return user;
     }
-//
-//    public boolean isUserExists() {
-//        return getCurrentFirebaseUser() != null;
-//    }
+
+    public boolean isUserExists() {
+        return getCurrentFirebaseUser() != null;
+    }
 
     public void signUp(String email, String password) {
         if (hasEmailAndPassword(email, password)) {
@@ -83,10 +84,7 @@ public class UserAuth {
                 if (!task.isSuccessful()) {
                     showFailureToast(task.getException().getMessage());
                 } else {
-                    task.getResult().getUser().sendEmailVerification();
-
-                    Intent intent = new Intent(context, MainActivity.class);
-                    context.startActivity(intent);
+                    context.startActivity(new Intent(context, MainActivity.class));
                 }
             }
         };
@@ -103,5 +101,19 @@ public class UserAuth {
     }
     private boolean hasEmailAndPassword(String email, String password) {
         return !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password);
+    }
+
+    public void updateUserData(String userName) {
+        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                .setDisplayName(userName)
+                .build();
+        getCurrentFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d("Log1", "User updated successfully");
+                }
+            }
+        });
     }
 }

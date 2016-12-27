@@ -19,17 +19,19 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>{
 
     private List<Message> messageList;
-    private int author;
+    private static final int TYPE_RED = 0;
+    private static final int TYPE_BLUE = 1;
+    private static final int TYPE_VIOLET = 2;
+    private static final int TYPE_MAX_COUNT = TYPE_VIOLET + 1;
 
-    public MessageAdapter(List<Message> messageList, int author) {
+    public MessageAdapter(List<Message> messageList) {
         this.messageList = messageList;
-        this.author = author;
     }
 
     @Override
-    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int author) {
+    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layout = -1;
-        switch (author) {
+        switch (viewType) {
             case 0:
                 layout = R.layout.message_item_author;
                 break;

@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.olga.testchatapp.util.UserAuth;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import static com.example.olga.testchatapp.util.Constants.USERNAME;
 
@@ -37,8 +40,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
         userAuth = new UserAuth(this);
-        userAuth.getCurrentFirebaseUser();
-
+        if (userAuth.isUserExists()) {
+            Log.d("Log1", "current user name: " + userAuth.getCurrentFirebaseUser().getDisplayName());
+        }
 
         userSettings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = userSettings.edit();
@@ -47,6 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         editor.commit();
 
         btnSignUp.setOnClickListener(this);
+
     }
 
     @Override
@@ -65,7 +70,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSignUp:
-                userAuth.signUp(emailField.getText().toString().trim(), passwordField.toString().trim());
+                userAuth.signUp(
+                        emailField.getText().toString().trim(),
+                        passwordField.getText().toString().trim());
                 break;
         }
     }
