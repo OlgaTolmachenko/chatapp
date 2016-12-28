@@ -5,6 +5,7 @@ package com.example.olga.testchatapp.model;
  */
 
 public class MessageResponse {
+
     private String message_id;
     private String error;
 

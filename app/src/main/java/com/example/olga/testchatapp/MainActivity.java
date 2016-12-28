@@ -10,6 +10,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MessageAdapter messageAdapter;
     private String email;
     EditText messageField;
+    private String lastEmail;
 
     Map<String, String> userColorMap = new HashMap<>();
 
@@ -65,11 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             int color = Color.rgb(r, g, b);
 
-//            if (TextUtils.isEmpty(lastEmail) || !intent.getStringExtra(USERNAME).equals(lastEmail)) {
-//
-//                lastEmail = intent.getStringExtra(USERNAME);
-//                userColorMap.put(lastEmail, String.valueOf(color));
-//            }
+            if (TextUtils.isEmpty(lastEmail) || !intent.getStringExtra(USERNAME).equals(lastEmail)) {
+
+                lastEmail = intent.getStringExtra(USERNAME);
+                userColorMap.put(lastEmail, String.valueOf(color));
+            }
 
             String userName = intent.getStringExtra(USERNAME);
             String message = intent.getStringExtra("message");

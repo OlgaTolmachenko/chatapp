@@ -29,16 +29,4 @@ public final class MessageApp extends Application{
     public void setMessageList(ReceivedMessage message) {
         MessageApp.messageList.add(message);
     }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        //Initializing firebase
-        Firebase.setAndroidContext(getApplicationContext());
-    }
-
-//
-//    public void setMessageList(int position, Message message) {
-//        MessageApp.messageList.add(position, message);
-//    }
 }
