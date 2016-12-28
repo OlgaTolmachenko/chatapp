@@ -6,28 +6,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_weight="3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:layout_margin="8dp">
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="username" />
+            android:text="username"
+            android:textSize="12sp"
+            android:textColor="@android:color/holo_red_dark" />
 
         <TextView
             android:id="@+id/messageText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test message"
             android:layout_below="@+id/userName"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/messageTime"
-            android:layout_alignEnd="@+id/messageTime"
-            android:textSize="14dp"/>
+            android:textSize="14dp"
+            android:textStyle="normal|bold"
+            android:textAlignment="viewStart"/>
 
         <TextView
             android:id="@+id/messageTime"
@@ -35,14 +35,9 @@
             android:layout_height="wrap_content"
             android:text="13:44"
             android:layout_below="@+id/messageText"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:textSize="8dp"/>
 
     </RelativeLayout>
-
-    <Space
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.example.olga.testchatapp.MessageApp;
 import com.example.olga.testchatapp.model.Message;
+import com.example.olga.testchatapp.model.ReceivedMessage;
 
 import static com.example.olga.testchatapp.util.Constants.USERNAME;
 
@@ -20,7 +21,7 @@ public class MessageReceiver extends BroadcastReceiver {
         String message = intent.getStringExtra("message");
         long time = intent.getLongExtra("time", 0L);
 
-        Message currentMessage = new Message(userName, message, time);
+        ReceivedMessage currentMessage = new ReceivedMessage(userName, message, time);
 
         MessageApp.getInstance().setMessageList(currentMessage);
     }

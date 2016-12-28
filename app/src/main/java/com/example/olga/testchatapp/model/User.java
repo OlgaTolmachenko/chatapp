@@ -1,30 +1,32 @@
 package com.example.olga.testchatapp.model;
 
 /**
- * Created by olga on 23.12.16.
+ * Created by olga on 28.12.16.
  */
 
 public class User {
 
-    private String userName;
     private String email;
-    private String password;
+    private int color;
 
-    public User(String userName, String email, String password) {
-        this.userName = userName;
+    public User(String email, int color) {
         this.email = email;
-        this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
+        this.color = color;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

@@ -7,6 +7,8 @@ import android.util.Log;
 
 
 import com.example.olga.testchatapp.model.Message;
+import com.example.olga.testchatapp.model.ReceivedMessage;
+import com.example.olga.testchatapp.model.User;
 import com.example.olga.testchatapp.util.Constants;
 import com.example.olga.testchatapp.util.MessageAdapter;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -17,26 +19,13 @@ import java.util.List;
 
 public class MessageService extends FirebaseMessagingService {
 
-    private final String  TAG = getClass().getSimpleName();
-    private MessageAdapter messageAdapter;
-
-    private List<Message> messageList;
-
-    public MessageService() {
-        messageList = new ArrayList<>();
-        messageAdapter = new MessageAdapter(messageList);
-    }
-
-    public List<Message> getMessageList() {
-        return messageList;
-    }
+    ReceivedMessage incomingMessage;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        Message incomingMessage = new Message(remoteMessage.getFrom(), remoteMessage.getNotification().getBody(), remoteMessage.getSentTime());
-
+        incomingMessage = new ReceivedMessage(remoteMessage.getData().get("userName"), remoteMessage.getData().get("message"), remoteMessage.getSentTime());
 
         Intent intent = new Intent("SEND_MESSAGE");
         intent.putExtra(Constants.USERNAME, incomingMessage.getUserName());
@@ -44,17 +33,6 @@ public class MessageService extends FirebaseMessagingService {
         intent.putExtra("time", incomingMessage.getMessageTime());
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-
-
-//        MessageApp.getInstance().setMessageList(incomingMessage);
-
-        Log.d("AAAAAAAAAAaa", "Messages in SERVICE : " + MessageApp.getInstance().getMessageList().size());
-
-
-        for (Message message : MessageApp.getInstance().getMessageList()) {
-            Log.d("AAAAAAAAAAaa", "Current message: " + message.getMessage());
-        }
-
     }
 }
 
