@@ -40,9 +40,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
         userAuth = new UserAuth(this);
-        if (userAuth.isUserExists()) {
-            Log.d("Log1", "current user name: " + userAuth.getCurrentFirebaseUser().getDisplayName());
-        }
+        userAuth.getCurrentFirebaseUser();
 
         userSettings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = userSettings.edit();

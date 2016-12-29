@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.olga.testchatapp.R;
 import com.example.olga.testchatapp.model.ReceivedMessage;
+import com.example.olga.testchatapp.model.User;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -24,11 +25,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private final int TYPE_ME = 0, TYPE_OTHERS = 1;
     private Map userColorMap;
     private String currentEmail;
+    private User currentUser;
 
-    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName, Map userColorMap) {
+    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName, Map userColorMap, User currentUser) {
         this.messageList = messageList;
         this.myUserName = myUserName;
         this.userColorMap = userColorMap;
+        this.currentUser = currentUser;
     }
 
     @Override
@@ -45,15 +48,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        itemView.setBackgroundColor(Integer.parseInt(userColorMap.get(currentEmail).toString()));
         MessageViewHolder messageVH = new MessageViewHolder(itemView);
         return messageVH;
     }
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
+
+//        holder.itemView.setBackgroundColor(Integer.parseInt(userColorMap.get(currentEmail).toString()));
+
         holder.userName.setText(messageList.get(position).getUserName());
         holder.message.setText(messageList.get(position).getMessage());
+        holder.message.setBackgroundColor(currentUser.getColor());
         holder.time.setText(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(messageList.get(position).getMessageTime()));
     }
 

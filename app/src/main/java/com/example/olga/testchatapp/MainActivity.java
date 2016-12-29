@@ -15,16 +15,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.olga.testchatapp.io.ChatNetworking;
 import com.example.olga.testchatapp.model.Data;
 import com.example.olga.testchatapp.model.Message;
-import com.example.olga.testchatapp.model.MessageResponse;
 import com.example.olga.testchatapp.model.ReceivedMessage;
+import com.example.olga.testchatapp.model.User;
 import com.example.olga.testchatapp.util.MessageAdapter;
-import com.example.olga.testchatapp.util.MessagingApiInterface;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -33,16 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 import static com.example.olga.testchatapp.util.Constants.USERNAME;
-
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,26 +41,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView.LayoutManager messageLM;
     private MessageAdapter messageAdapter;
     private String email;
-    EditText messageField;
-    private String lastEmail;
+    private EditText messageField;
+    private User currentUser;
 
-    Map<String, String> userColorMap = new HashMap<>();
+    Map<String, Integer> userColorMap = new HashMap<>();
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+
         @Override
         public void onReceive(Context context, Intent intent) {
-
-            Random rnd = new Random();
-            int r = rnd.nextInt(255);
-            int g = rnd.nextInt(255);
-            int b = rnd.nextInt(255);
-
-            int color = Color.rgb(r, g, b);
-
-            if (TextUtils.isEmpty(lastEmail) || !intent.getStringExtra(USERNAME).equals(lastEmail)) {
-
-                lastEmail = intent.getStringExtra(USERNAME);
-                userColorMap.put(lastEmail, String.valueOf(color));
+            String lastEmail = intent.getStringExtra(USERNAME);
+            if (!TextUtils.isEmpty(lastEmail)){
+                if(!userColorMap.containsKey(lastEmail)) {
+                    Random rnd = new Random();
+                    int r = rnd.nextInt(255);
+                    int g = rnd.nextInt(255);
+                    int b = rnd.nextInt(255);
+                    int color = Color.argb(128, r, g, b);
+                    userColorMap.put(lastEmail, color);
+                    currentUser = new User(lastEmail, color);
+                }
             }
 
             String userName = intent.getStringExtra(USERNAME);
@@ -80,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ReceivedMessage currentMessage = new ReceivedMessage(userName, message, time);
 
             MessageApp.getInstance().setMessageList(currentMessage);
-            messageAdapter.notifyDataSetChanged();
+            messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
+            messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
 
             Log.d("Log2", "Message received: " + MessageApp.getInstance().getMessageList().size());
         }
@@ -102,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         messageField = (EditText) findViewById(R.id.messageField);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        }
 
         messageRecycler = (RecyclerView) findViewById(R.id.messageRecycler);
         messageLM = new LinearLayoutManager(this);
@@ -109,11 +103,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messageAdapter = new MessageAdapter(
                 MessageApp.getInstance().getMessageList(),
                 //TODO check getEmail()
-                FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                userColorMap);
+                email,
+                userColorMap, currentUser);
 
         messageRecycler.setAdapter(messageAdapter);
-
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
     }
@@ -151,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Message message = new Message("/topics/news", new Data(email, messageField.getText().toString()));
         FirebaseMessaging.getInstance().subscribeToTopic("/topics/news");
-        sendMessage(message);
+        new ChatNetworking().sendMessage(message);
 
         messageField.setText("");
     }
@@ -161,38 +154,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(new Intent(this, SignInActivity.class));
     }
 
-    private void sendMessage(Message message) {
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(getLogger())
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://fcm.googleapis.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-
-        MessagingApiInterface service = retrofit.create(MessagingApiInterface.class);
-
-        Call<MessageResponse> call = service.sendMessage(message);
-        call.enqueue(new Callback<MessageResponse>() {
-            @Override
-            public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
-                Log.d("Log2", "onResponse: " + response.code());
-                Log.d("Log2", "onResponse: " + response.body().getError());
-            }
-
-            @Override
-            public void onFailure(Call<MessageResponse> call, Throwable t) {
-                Log.d("Log2", "onFailure: " + t.getMessage());
-            }
-        });
-    }
-
-    protected HttpLoggingInterceptor getLogger(){
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return logging;
-    }
 }

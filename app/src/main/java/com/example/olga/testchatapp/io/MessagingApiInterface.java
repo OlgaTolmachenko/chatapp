@@ -1,4 +1,4 @@
-package com.example.olga.testchatapp.util;
+package com.example.olga.testchatapp.io;
 
 import com.example.olga.testchatapp.model.Message;
 import com.example.olga.testchatapp.model.MessageResponse;

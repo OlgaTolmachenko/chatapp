@@ -34,7 +34,7 @@ public class UserAuth {
 
     }
 
-    public FirebaseUser getCurrentFirebaseUser() {
+    public void getCurrentFirebaseUser() {
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -43,16 +43,15 @@ public class UserAuth {
                     context.startActivity(new Intent(context, MainActivity.class));
                 } else {
                     // User is signed out
-                    Log.d("AAAAAAAAAAAAa", "onAuthStateChanged:signed_out");
+                    Log.d("Log2", "onAuthStateChanged:signed_out");
                 }
             }
         };
-        return user;
     }
-
-    public boolean isUserExists() {
-        return getCurrentFirebaseUser() != null;
-    }
+//
+//    public boolean isUserExists() {
+//        return getCurrentFirebaseUser() != null;
+//    }
 
     public void signUp(String email, String password) {
         if (hasEmailAndPassword(email, password)) {
@@ -103,17 +102,17 @@ public class UserAuth {
         return !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password);
     }
 
-    public void updateUserData(String userName) {
-        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                .setDisplayName(userName)
-                .build();
-        getCurrentFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d("Log1", "User updated successfully");
-                }
-            }
-        });
-    }
+//    public void updateUserData(String userName) {
+//        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+//                .setDisplayName(userName)
+//                .build();
+//        getCurrentFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    Log.d("Log1", "User updated successfully");
+//                }
+//            }
+//        });
+//    }
 }
