@@ -1,37 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:layout_width="wrap_content"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dimen_8dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_gravity="right"
+    android:gravity="right"
+    android:layout_marginBottom="@dimen/dimen_8dp"
+    android:layout_marginLeft="40dp">
 
-    <TextView
-        android:id="@+id/userName"
+    <LinearLayout
+        android:id="@+id/messageLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="@string/username"
-        android:textSize="12sp"
-        android:textColor="@android:color/holo_red_dark" />
+        android:gravity="right"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_corners">
 
-    <TextView
-        android:id="@+id/messageText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/userName"
-        android:layout_alignParentEnd="true"
-        android:textSize="14sp"
-        android:textStyle="normal|bold"
-        android:padding="@dimen/dimen_8dp"
-        android:textAlignment="viewEnd"/>
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            android:textSize="12sp"
+            android:textColor="@android:color/holo_red_dark" />
 
-    <TextView
-        android:id="@+id/messageTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/messageText"
-        android:textSize="8sp"/>
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="normal|bold"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/messageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textSize="8sp"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,15 +23,21 @@ import com.example.olga.testchatapp.model.Data;
 import com.example.olga.testchatapp.model.Message;
 import com.example.olga.testchatapp.model.ReceivedMessage;
 import com.example.olga.testchatapp.model.User;
+import com.example.olga.testchatapp.util.ChatItemDecoration;
 import com.example.olga.testchatapp.util.MessageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static com.example.olga.testchatapp.util.Constants.COLOR_MASK;
+import static com.example.olga.testchatapp.util.Constants.CURRENT_USER;
+import static com.example.olga.testchatapp.util.Constants.MESSAGE;
+import static com.example.olga.testchatapp.util.Constants.SEND_MESSAGE;
+import static com.example.olga.testchatapp.util.Constants.TIME;
+import static com.example.olga.testchatapp.util.Constants.TOPIC;
 import static com.example.olga.testchatapp.util.Constants.USERNAME;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText messageField;
     private User currentUser;
 
-    Map<String, Integer> userColorMap = new HashMap<>();
+    Map<String, Integer> userMap = new HashMap<>();
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
@@ -52,39 +58,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onReceive(Context context, Intent intent) {
             String lastEmail = intent.getStringExtra(USERNAME);
             if (!TextUtils.isEmpty(lastEmail)){
-                if(!userColorMap.containsKey(lastEmail)) {
-                    Random rnd = new Random();
-                    int r = rnd.nextInt(255);
-                    int g = rnd.nextInt(255);
-                    int b = rnd.nextInt(255);
-                    int color = Color.argb(128, r, g, b);
-                    userColorMap.put(lastEmail, color);
-                    currentUser = new User(lastEmail, color);
+                if(!userMap.containsKey(lastEmail)) {
+
+                    userMap.put(lastEmail, generateColor());
+                    currentUser = new User(lastEmail, generateColor());
                 }
             }
 
-            String userName = intent.getStringExtra(USERNAME);
-            String message = intent.getStringExtra("message");
-            long time = intent.getLongExtra("time", 0L);
-
-            ReceivedMessage currentMessage = new ReceivedMessage(userName, message, time);
-
+            ReceivedMessage currentMessage = getReceivedMessage(intent);
             MessageApp.getInstance().setMessageList(currentMessage);
             messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
             messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
-
-            Log.d("Log2", "Message received: " + MessageApp.getInstance().getMessageList().size());
         }
     };
+
+    @NonNull
+    private ReceivedMessage getReceivedMessage(Intent intent) {
+        String userName = intent.getStringExtra(USERNAME);
+        String message = intent.getStringExtra(MESSAGE);
+        long time = intent.getLongExtra(TIME, 0L);
+
+        return new ReceivedMessage(userName, message, time);
+    }
+
+    private int generateColor() {
+        Random rnd = new Random();
+        int r = rnd.nextInt(COLOR_MASK);
+        int g = rnd.nextInt(COLOR_MASK);
+        int b = rnd.nextInt(COLOR_MASK);
+        return Color.argb(128, r, g, b);
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        LocalBroadcastManager.getInstance(this)
-                .registerReceiver(
-                        broadcastReceiver,
-                        new IntentFilter("SEND_MESSAGE"));
+        if (broadcastReceiver != null) {
+            LocalBroadcastManager.getInstance(this)
+                    .registerReceiver(
+                            broadcastReceiver,
+                            new IntentFilter(SEND_MESSAGE));
+        }
     }
 
     @Override
@@ -93,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         messageField = (EditText) findViewById(R.id.messageField);
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if (isUserExists()) {
             email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         }
 
@@ -102,11 +116,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messageRecycler.setLayoutManager(messageLM );
         messageAdapter = new MessageAdapter(
                 MessageApp.getInstance().getMessageList(),
-                //TODO check getEmail()
                 email,
-                userColorMap, currentUser);
+                userMap, currentUser);
 
         messageRecycler.setAdapter(messageAdapter);
+        messageRecycler.addItemDecoration(new ChatItemDecoration());
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
     }
@@ -136,17 +150,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (currentUser != null) {
-            email = currentUser.getEmail();
+        if (isUserExists()) {
+            email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         }
-
-        Message message = new Message("/topics/news", new Data(email, messageField.getText().toString()));
-        FirebaseMessaging.getInstance().subscribeToTopic("/topics/news");
-        new ChatNetworking().sendMessage(message);
-
+        sendMessage();
         messageField.setText("");
+    }
+
+    private boolean isUserExists() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
+    }
+
+    private void sendMessage() {
+        Message message = new Message(TOPIC, new Data(email, messageField.getText().toString()));
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC);
+        new ChatNetworking().sendMessage(message);
     }
 
     private void logout() {

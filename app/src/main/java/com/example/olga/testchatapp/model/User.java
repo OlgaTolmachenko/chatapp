@@ -1,5 +1,7 @@
 package com.example.olga.testchatapp.model;
 
+import java.util.Objects;
+
 /**
  * Created by olga on 28.12.16.
  */
@@ -28,5 +30,9 @@ public class User {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    public boolean equals(User user) {
+        return this.email.equals(user.email);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.olga.testchatapp.util;
 
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import com.example.olga.testchatapp.model.User;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.olga.testchatapp.util.Constants.DATE_FORMAT;
 
 /**
  * Created by olga on 22.12.16.
@@ -55,18 +59,22 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
 
-//        holder.itemView.setBackgroundColor(Integer.parseInt(userColorMap.get(currentEmail).toString()));
+
+        GradientDrawable drawable = (GradientDrawable) holder.itemViewChild.getBackground();
+        drawable.setColor(Integer.parseInt(userColorMap.get(currentEmail).toString()));
+//        holder.itemViewChild.setBackgroundColor(Integer.parseInt(userColorMap.get(currentEmail).toString()));
+//        holder.itemViewChild.setBackgroundResource(R.drawable.rounded_corners);
 
         holder.userName.setText(messageList.get(position).getUserName());
         holder.message.setText(messageList.get(position).getMessage());
-        holder.message.setBackgroundColor(currentUser.getColor());
-        holder.time.setText(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(messageList.get(position).getMessageTime()));
+//        holder.message.setBackgroundColor((Integer) userColorMap.get(currentEmail));
+        holder.time.setText(new SimpleDateFormat(DATE_FORMAT).format(messageList.get(position).getMessageTime()));
     }
 
     @Override
     public int getItemViewType(int position) {
         currentEmail = messageList.get(position).getUserName();
-        if (messageList.get(position).getUserName().equals(myUserName)) {
+        if (currentEmail.equals(myUserName)) {
             return TYPE_ME;
         } else {
             return TYPE_OTHERS;
@@ -83,15 +91,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
 
+        public View itemViewChild;
         public TextView userName;
         public TextView message;
         public TextView time;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
-            userName = (TextView) itemView.findViewById(R.id.userName);
-            message = (TextView) itemView.findViewById(R.id.messageText);
-            time = (TextView) itemView.findViewById(R.id.messageTime);
+            itemViewChild = itemView.findViewById(R.id.messageLayout);
+            userName = (TextView) itemViewChild.findViewById(R.id.userName);
+            message = (TextView) itemViewChild.findViewById(R.id.messageText);
+            time = (TextView) itemViewChild.findViewById(R.id.messageTime);
         }
     }
 }
