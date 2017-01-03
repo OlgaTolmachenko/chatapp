@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.olga.testchatapp.MainActivity;
+import com.example.olga.testchatapp.SignInActivity;
 import com.example.olga.testchatapp.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class UserAuth {
 
+    private final String ENTER_DATA = "Enter data";
+
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private Activity context;
@@ -31,7 +34,6 @@ public class UserAuth {
     public UserAuth(Activity context) {
         this.context = context;
         auth = FirebaseAuth.getInstance();
-
     }
 
     public void getCurrentFirebaseUser() {
@@ -42,23 +44,18 @@ public class UserAuth {
                 if (user != null) {
                     context.startActivity(new Intent(context, MainActivity.class));
                 } else {
-                    // User is signed out
-                    Log.d("Log2", "onAuthStateChanged:signed_out");
+                    Log.d("Log2", "onAuthStateChanged: signed_out");
                 }
             }
         };
     }
-//
-//    public boolean isUserExists() {
-//        return getCurrentFirebaseUser() != null;
-//    }
 
     public void signUp(String email, String password) {
         if (hasEmailAndPassword(email, password)) {
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(context, getCompleteListener());
         } else {
-            showFailureToast("Enter data");
+            showFailureToast(ENTER_DATA);
         }
     }
 
@@ -67,7 +64,7 @@ public class UserAuth {
             auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(context, getCompleteListener());
         } else {
-            showFailureToast("Enter data");
+            showFailureToast(ENTER_DATA);
         }
     }
 
@@ -102,17 +99,8 @@ public class UserAuth {
         return !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password);
     }
 
-//    public void updateUserData(String userName) {
-//        UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-//                .setDisplayName(userName)
-//                .build();
-//        getCurrentFirebaseUser().updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()) {
-//                    Log.d("Log1", "User updated successfully");
-//                }
-//            }
-//        });
-//    }
+    public void logout() {
+        FirebaseAuth.getInstance().signOut();
+        context.startActivity(new Intent(context, SignInActivity.class));
+    }
 }

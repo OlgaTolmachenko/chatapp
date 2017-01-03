@@ -11,7 +11,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,17 +24,14 @@ import com.example.olga.testchatapp.model.ReceivedMessage;
 import com.example.olga.testchatapp.model.User;
 import com.example.olga.testchatapp.util.ChatItemsDecor;
 import com.example.olga.testchatapp.util.MessageAdapter;
+import com.example.olga.testchatapp.util.UserAuth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Random;
 
 import static com.example.olga.testchatapp.util.Constants.COLOR_MASK;
-import static com.example.olga.testchatapp.util.Constants.CURRENT_USER;
 import static com.example.olga.testchatapp.util.Constants.MESSAGE;
 import static com.example.olga.testchatapp.util.Constants.SEND_MESSAGE;
 import static com.example.olga.testchatapp.util.Constants.TIME;
@@ -50,9 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MessageAdapter messageAdapter;
     private String email;
     private EditText messageField;
-    private User currentUser;
-
-//    HashMap<String, Integer> userColorMap = new HashMap<>();
+    private UserAuth userAuth;
 
     HashMap<String, User> userMap = new HashMap<>();
 
@@ -61,28 +55,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onReceive(Context context, Intent intent) {
-//            String email = intent.getStringExtra(USERNAME);
-//            if (!TextUtils.isEmpty(lastEmail)){
-//                if(!userColorMap.containsKey(lastEmail)) {
-//
-//                    userColorMap.put(lastEmail, generateColor());
-//                    currentUser = new User(lastEmail, generateColor());
-//                }
-//            }
 
             ReceivedMessage currentMessage = getReceivedMessage(intent);
+            User currentUser = new User(currentMessage.getUserName(), generateColor());
 
-            if (!TextUtils.isEmpty(currentMessage.getUserName())) {
-                currentUser = new User(currentMessage.getUserName(), generateColor());
-                if (!userMap.isEmpty()) {
-                    for (User user : userMap.values()) {
-                        if (!user.getEmail().equals(currentMessage.getUserName())) {
-                            userMap.put(CURRENT_USER, currentUser);
-                        }
-                    }
-                } else {
-                    userMap.put(CURRENT_USER, currentUser);
-                }
+            if (userMap.isEmpty()) {
+                userMap.put(currentUser.getEmail(), currentUser);
+            }
+            if (!userMap.containsKey(currentMessage.getUserName())) {
+                userMap.put(currentMessage.getUserName(), currentUser);
             }
 
             MessageApp.getInstance().setMessageList(currentMessage);
@@ -125,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        userAuth = new UserAuth(this);
+
         messageField = (EditText) findViewById(R.id.messageField);
         if (isUserExists()) {
             email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -136,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messageAdapter = new MessageAdapter(
                 MessageApp.getInstance().getMessageList(),
                 email,
-                userMap, currentUser);
+                userMap);
 
         messageRecycler.setAdapter(messageAdapter);
         messageRecycler.addItemDecoration(new ChatItemsDecor(
@@ -157,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemLogout:
-                logout();
+                userAuth.logout();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -188,11 +171,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC);
         new ChatNetworking().sendMessage(message);
     }
-
-    private void logout() {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(this, SignInActivity.class));
-    }
-
-
 }

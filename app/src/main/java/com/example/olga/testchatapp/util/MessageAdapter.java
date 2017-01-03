@@ -28,13 +28,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public static final int TYPE_OTHERS = 1;
     private List<ReceivedMessage> messageList;
     private String myUserName;
-    private HashMap<String, User> userColorMap;
+    private HashMap<String, User> userMap;
     private String currentEmail;
 
-    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName, HashMap<String, User> userColorMap) {
+    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName, HashMap<String, User> userMap) {
         this.messageList = messageList;
         this.myUserName = myUserName;
-        this.userColorMap = userColorMap;
+        this.userMap = userMap;
     }
 
     @Override
@@ -58,9 +58,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
 
-        holder.itemViewChild.setBackgroundColor((userColorMap.get(CURRENT_USER).getColor()));
-        holder.itemViewChild.setBackgroundResource(R.drawable.rounded_corners);
-        holder.userName.setText(messageList.get(position).getUserName());
+//        convertView.setBackgroundResource(R.drawable.row_forground);
+//        GradientDrawable drawable = (GradientDrawable) convertView.getBackground();
+//        drawable.setColor(color2[colorPos]);
+
+//        holder.itemViewChild.setBackgroundColor((userMap.get(currentEmail).getColor()));
+        View itemView = holder.itemViewChild;
+        itemView.setBackgroundResource(R.drawable.rounded_corners);
+        GradientDrawable drawable = (GradientDrawable) itemView.getBackground();
+        drawable.setColor(userMap.get(currentEmail).getColor());
+                holder.userName.setText(messageList.get(position).getUserName());
         holder.message.setText(messageList.get(position).getMessage());
         holder.time.setText(new SimpleDateFormat(DATE_FORMAT).format(messageList.get(position).getMessageTime()));
     }
