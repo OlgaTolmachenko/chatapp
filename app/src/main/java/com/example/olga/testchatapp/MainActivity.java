@@ -23,12 +23,14 @@ import com.example.olga.testchatapp.model.Data;
 import com.example.olga.testchatapp.model.Message;
 import com.example.olga.testchatapp.model.ReceivedMessage;
 import com.example.olga.testchatapp.model.User;
-import com.example.olga.testchatapp.util.ChatItemDecoration;
+import com.example.olga.testchatapp.util.ChatItemsDecor;
 import com.example.olga.testchatapp.util.MessageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -50,22 +52,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText messageField;
     private User currentUser;
 
-    Map<String, Integer> userMap = new HashMap<>();
+//    HashMap<String, Integer> userColorMap = new HashMap<>();
+
+    HashMap<String, User> userMap = new HashMap<>();
+
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String lastEmail = intent.getStringExtra(USERNAME);
-            if (!TextUtils.isEmpty(lastEmail)){
-                if(!userMap.containsKey(lastEmail)) {
+//            String email = intent.getStringExtra(USERNAME);
+//            if (!TextUtils.isEmpty(lastEmail)){
+//                if(!userColorMap.containsKey(lastEmail)) {
+//
+//                    userColorMap.put(lastEmail, generateColor());
+//                    currentUser = new User(lastEmail, generateColor());
+//                }
+//            }
 
-                    userMap.put(lastEmail, generateColor());
-                    currentUser = new User(lastEmail, generateColor());
+            ReceivedMessage currentMessage = getReceivedMessage(intent);
+
+            if (!TextUtils.isEmpty(currentMessage.getUserName())) {
+                currentUser = new User(currentMessage.getUserName(), generateColor());
+                if (!userMap.isEmpty()) {
+                    for (User user : userMap.values()) {
+                        if (!user.getEmail().equals(currentMessage.getUserName())) {
+                            userMap.put(CURRENT_USER, currentUser);
+                        }
+                    }
+                } else {
+                    userMap.put(CURRENT_USER, currentUser);
                 }
             }
 
-            ReceivedMessage currentMessage = getReceivedMessage(intent);
             MessageApp.getInstance().setMessageList(currentMessage);
             messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
             messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
@@ -120,7 +139,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 userMap, currentUser);
 
         messageRecycler.setAdapter(messageAdapter);
-        messageRecycler.addItemDecoration(new ChatItemDecoration());
+        messageRecycler.addItemDecoration(new ChatItemsDecor(
+                getResources().getDimensionPixelOffset(R.dimen.item_spin),
+                getResources().getDimensionPixelOffset(R.dimen.dimen_8dp)));
+
         btnSend = (ImageButton) findViewById(R.id.btnSend);
         btnSend.setOnClickListener(this);
     }

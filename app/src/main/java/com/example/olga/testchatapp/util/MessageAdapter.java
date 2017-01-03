@@ -1,7 +1,6 @@
 package com.example.olga.testchatapp.util;
 
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,10 @@ import com.example.olga.testchatapp.model.ReceivedMessage;
 import com.example.olga.testchatapp.model.User;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import static com.example.olga.testchatapp.util.Constants.CURRENT_USER;
 import static com.example.olga.testchatapp.util.Constants.DATE_FORMAT;
 
 /**
@@ -24,18 +24,17 @@ import static com.example.olga.testchatapp.util.Constants.DATE_FORMAT;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>{
 
+    public static final int TYPE_ME = 0;
+    public static final int TYPE_OTHERS = 1;
     private List<ReceivedMessage> messageList;
     private String myUserName;
-    private final int TYPE_ME = 0, TYPE_OTHERS = 1;
-    private Map userColorMap;
+    private HashMap<String, User> userColorMap;
     private String currentEmail;
-    private User currentUser;
 
-    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName, Map userColorMap, User currentUser) {
+    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName, HashMap<String, User> userColorMap) {
         this.messageList = messageList;
         this.myUserName = myUserName;
         this.userColorMap = userColorMap;
-        this.currentUser = currentUser;
     }
 
     @Override
@@ -59,15 +58,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
 
-
-        GradientDrawable drawable = (GradientDrawable) holder.itemViewChild.getBackground();
-        drawable.setColor(Integer.parseInt(userColorMap.get(currentEmail).toString()));
-//        holder.itemViewChild.setBackgroundColor(Integer.parseInt(userColorMap.get(currentEmail).toString()));
-//        holder.itemViewChild.setBackgroundResource(R.drawable.rounded_corners);
-
+        holder.itemViewChild.setBackgroundColor((userColorMap.get(CURRENT_USER).getColor()));
+        holder.itemViewChild.setBackgroundResource(R.drawable.rounded_corners);
         holder.userName.setText(messageList.get(position).getUserName());
         holder.message.setText(messageList.get(position).getMessage());
-//        holder.message.setBackgroundColor((Integer) userColorMap.get(currentEmail));
         holder.time.setText(new SimpleDateFormat(DATE_FORMAT).format(messageList.get(position).getMessageTime()));
     }
 
@@ -95,6 +89,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         public TextView userName;
         public TextView message;
         public TextView time;
+        public GradientDrawable drawable;
 
         public MessageViewHolder(View itemView) {
             super(itemView);

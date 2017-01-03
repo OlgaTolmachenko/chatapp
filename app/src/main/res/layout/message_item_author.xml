@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="right"
-    android:gravity="right"
-    android:layout_marginBottom="@dimen/dimen_8dp"
-    android:layout_marginLeft="40dp">
+    android:gravity="right">
 
     <LinearLayout
         android:id="@+id/messageLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:background="@drawable/rounded_corners"
         android:orientation="vertical"
-        android:background="@drawable/rounded_corners">
+        android:gravity="right">
 
         <TextView
             android:id="@+id/userName"
@@ -29,20 +28,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
+            android:padding="@dimen/dimen_8dp"
             android:textStyle="normal|bold"
-            android:paddingTop="@dimen/dimen_8dp"
-            android:paddingBottom="@dimen/dimen_8dp"/>
+            android:textAlignment="viewStart"/>
 
         <TextView
             android:id="@+id/messageTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/time"
-            android:textSize="8sp"
-            />
+            android:textSize="8sp"/>
 
     </LinearLayout>
-
-
 
 </LinearLayout>
