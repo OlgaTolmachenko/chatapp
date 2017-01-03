@@ -40,6 +40,9 @@ import static com.example.olga.testchatapp.util.Constants.USERNAME;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private final Long DEFAULT_TIME = 0L;
+    private final int ALPHA = 128;
+
     private ImageButton btnSend;
     private RecyclerView messageRecycler;
     private RecyclerView.LayoutManager messageLM;
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ReceivedMessage getReceivedMessage(Intent intent) {
         String userName = intent.getStringExtra(USERNAME);
         String message = intent.getStringExtra(MESSAGE);
-        long time = intent.getLongExtra(TIME, 0L);
+        long time = intent.getLongExtra(TIME, DEFAULT_TIME);
 
         return new ReceivedMessage(userName, message, time);
     }
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int r = rnd.nextInt(COLOR_MASK);
         int g = rnd.nextInt(COLOR_MASK);
         int b = rnd.nextInt(COLOR_MASK);
-        return Color.argb(128, r, g, b);
+        return Color.argb(ALPHA, r, g, b);
     }
 
     @Override

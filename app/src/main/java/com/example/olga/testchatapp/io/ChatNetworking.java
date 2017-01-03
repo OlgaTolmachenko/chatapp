@@ -21,6 +21,8 @@ import static com.example.olga.testchatapp.util.Constants.URL;
 
 public class ChatNetworking {
 
+    private final String TAG = "networking";
+
     public void sendMessage(Message message) {
 
         MessagingApiInterface service = buildRetrofit().create(MessagingApiInterface.class);
@@ -29,12 +31,12 @@ public class ChatNetworking {
         call.enqueue(new Callback<MessageResponse>() {
             @Override
             public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
-                Log.d("Log2", "onResponse: " + response.code());
+                Log.d(TAG, "onResponse: " + response.code());
             }
 
             @Override
             public void onFailure(Call<MessageResponse> call, Throwable t) {
-                Log.d("Log2", "onFailure: " + t.getMessage());
+                Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
     }

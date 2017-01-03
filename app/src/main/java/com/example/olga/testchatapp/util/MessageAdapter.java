@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.olga.testchatapp.util.Constants.CURRENT_USER;
 import static com.example.olga.testchatapp.util.Constants.DATE_FORMAT;
 
 /**
@@ -57,12 +56,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
-
-//        convertView.setBackgroundResource(R.drawable.row_forground);
-//        GradientDrawable drawable = (GradientDrawable) convertView.getBackground();
-//        drawable.setColor(color2[colorPos]);
-
-//        holder.itemViewChild.setBackgroundColor((userMap.get(currentEmail).getColor()));
         View itemView = holder.itemViewChild;
         itemView.setBackgroundResource(R.drawable.rounded_corners);
         GradientDrawable drawable = (GradientDrawable) itemView.getBackground();

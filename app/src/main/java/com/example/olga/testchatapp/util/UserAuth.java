@@ -3,20 +3,17 @@ package com.example.olga.testchatapp.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.olga.testchatapp.MainActivity;
 import com.example.olga.testchatapp.SignInActivity;
-import com.example.olga.testchatapp.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 /**
  * Created by olga on 23.12.16.
@@ -25,6 +22,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class UserAuth {
 
     private final String ENTER_DATA = "Enter data";
+    private final String TAG = "auth";
 
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -44,7 +42,7 @@ public class UserAuth {
                 if (user != null) {
                     context.startActivity(new Intent(context, MainActivity.class));
                 } else {
-                    Log.d("Log2", "onAuthStateChanged: signed_out");
+                    Log.d(TAG, "onAuthStateChanged: signed_out");
                 }
             }
         };
