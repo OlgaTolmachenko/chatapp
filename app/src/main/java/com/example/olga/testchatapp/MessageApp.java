@@ -2,9 +2,7 @@ package com.example.olga.testchatapp;
 
 import android.app.Application;
 
-import com.example.olga.testchatapp.model.Message;
 import com.example.olga.testchatapp.model.ReceivedMessage;
-import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;

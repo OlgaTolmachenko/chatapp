@@ -26,6 +26,7 @@ import com.example.olga.testchatapp.util.ChatItemsDecor;
 import com.example.olga.testchatapp.util.MessageAdapter;
 import com.example.olga.testchatapp.util.UserAuth;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
@@ -162,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         }
         sendMessage();
+
         messageField.setText("");
     }
 
@@ -173,5 +175,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Message message = new Message(TOPIC, new Data(email, messageField.getText().toString()));
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC);
         new ChatNetworking().sendMessage(message);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
     }
 }
