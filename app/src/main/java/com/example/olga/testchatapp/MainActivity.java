@@ -26,7 +26,6 @@ import com.example.olga.testchatapp.util.ChatItemsDecor;
 import com.example.olga.testchatapp.util.MessageAdapter;
 import com.example.olga.testchatapp.util.UserAuth;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final Long DEFAULT_TIME = 0L;
     private final int ALPHA = 128;
 
+
     private ImageButton btnSend;
     private RecyclerView messageRecycler;
     private RecyclerView.LayoutManager messageLM;
@@ -60,19 +60,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            ReceivedMessage currentMessage = getReceivedMessage(intent);
-            User currentUser = new User(currentMessage.getUserName(), generateColor());
+        ReceivedMessage currentMessage = getReceivedMessage(intent);
+        User currentUser = new User(currentMessage.getUserName(), generateColor());
 
-            if (userMap.isEmpty()) {
-                userMap.put(currentUser.getEmail(), currentUser);
-            }
-            if (!userMap.containsKey(currentMessage.getUserName())) {
-                userMap.put(currentMessage.getUserName(), currentUser);
-            }
+//        if (userMap.isEmpty()) {
+//            userMap.put(currentUser.getEmail(), currentUser);
+//        }
+//
+//        if (!userMap.containsKey(currentMessage.getUserName())) {
+//            userMap.put(currentMessage.getUserName(), currentUser);
+//        }
 
+        if (MessageApp.getInstance().isActivityVisible()) {
             MessageApp.getInstance().setMessageList(currentMessage);
-            messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
-            messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
+        }
+
+        messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
+        messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
         }
     };
 
@@ -154,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStop() {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+        MessageApp.getInstance().activityPaused();
     }
 
     @Override
@@ -172,14 +177,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendMessage() {
-        Message message = new Message(TOPIC, new Data(email, messageField.getText().toString()));
+        Message message = new Message(TOPIC, new Data(email, messageField.getText().toString()), new User(email, generateColor()));
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC);
         new ChatNetworking().sendMessage(message);
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
     }
 }

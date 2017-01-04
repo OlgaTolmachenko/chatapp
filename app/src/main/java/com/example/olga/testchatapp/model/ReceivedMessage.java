@@ -10,9 +10,6 @@ public class ReceivedMessage {
     private String message;
     private long messageTime;
 
-    public ReceivedMessage() {
-    }
-
     public ReceivedMessage(String userName, String message, long messageTime) {
         this.userName = userName;
         this.message = message;

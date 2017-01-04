@@ -16,6 +16,8 @@ public final class MessageApp extends Application{
 
     private static List<ReceivedMessage> messageList = new ArrayList<>();
 
+    private static boolean activityVisible;
+
     public static MessageApp getInstance() {
         return instance;
     }
@@ -26,5 +28,17 @@ public final class MessageApp extends Application{
 
     public void setMessageList(ReceivedMessage message) {
         MessageApp.messageList.add(message);
+    }
+
+    public boolean isActivityVisible() {
+        return activityVisible;
+    }
+
+    public void activityResumed() {
+        activityVisible = true;
+    }
+
+    public void activityPaused() {
+        activityVisible = false;
     }
 }

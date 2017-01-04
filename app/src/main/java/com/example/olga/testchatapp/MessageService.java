@@ -1,12 +1,10 @@
 package com.example.olga.testchatapp;
 
-import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.NotificationCompat;
 
@@ -14,8 +12,6 @@ import com.example.olga.testchatapp.model.ReceivedMessage;
 import com.example.olga.testchatapp.util.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.List;
 
 public class MessageService extends FirebaseMessagingService {
 
@@ -25,23 +21,28 @@ public class MessageService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
+        incomingMessage = new ReceivedMessage(
+                remoteMessage.getData().get("userName"),
+                remoteMessage.getData().get("message"),
+                remoteMessage.getSentTime()
+        );
 
-        incomingMessage = new ReceivedMessage(remoteMessage.getData().get("userName"), remoteMessage.getData().get("message"), remoteMessage.getSentTime());
-
-
-        ActivityManager mngr = (ActivityManager) getSystemService( ACTIVITY_SERVICE );
-
-        List<ActivityManager.RunningTaskInfo> taskList = mngr.getRunningTasks(10);
-
-        if(taskList.get(0).numActivities == 1 &&
-                taskList.get(0).topActivity.getClassName().equals(this.getClass().getName())) {
-            sendNotification(incomingMessage);
+        if (userMap.isEmpty()) {
+            userMap.put(currentUser.getEmail(), currentUser);
         }
 
+        if (!userMap.containsKey(currentMessage.getUserName())) {
+            userMap.put(currentMessage.getUserName(), currentUser);
+        }
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(getSendIntent(incomingMessage));
 
+        if (!MessageApp.getInstance().isActivityVisible()) {
+            sendNotification(incomingMessage, this);
+            MessageApp.getInstance().setMessageList(incomingMessage);
 
+
+        }
     }
 
     @NonNull
@@ -53,32 +54,24 @@ public class MessageService extends FirebaseMessagingService {
         return intent;
     }
 
-    private void sendNotification(ReceivedMessage incomingMessage) {
+    private void sendNotification(ReceivedMessage incomingMessage, Context context) {
         android.support.v4.app.NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_email_white_18dp)
                 .setContentTitle("TestChatApp")
-                .setContentText(incomingMessage.getMessage());
+                .setContentText(incomingMessage.getMessage())
+                .setAutoCancel(true);
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(Constants.USERNAME, incomingMessage.getUserName());
-        intent.putExtra("message", incomingMessage.getMessage());
-        intent.putExtra("time", incomingMessage.getMessageTime());
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(MainActivity.class);
-        stackBuilder.addNextIntent(intent);
-
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(
-                0,
-                PendingIntent.FLAG_UPDATE_CURRENT
-        );
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
         notificationBuilder.setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         notificationManager.notify(0, notificationBuilder.build());
+        LocalBroadcastManager.getInstance(this).sendBroadcast(getSendIntent(incomingMessage));
     }
 }
 
