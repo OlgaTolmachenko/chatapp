@@ -4,63 +4,63 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 
 import com.example.olga.testchatapp.model.ReceivedMessage;
 import com.example.olga.testchatapp.model.User;
-import com.example.olga.testchatapp.util.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
-import retrofit2.converter.gson.GsonConverterFactory;
+import static com.example.olga.testchatapp.util.Constants.ALPHA;
+import static com.example.olga.testchatapp.util.Constants.COLOR_MASK;
+import static com.example.olga.testchatapp.util.Constants.EMAIL;
+import static com.example.olga.testchatapp.util.Constants.MESSAGE;
+import static com.example.olga.testchatapp.util.Constants.NOTIFY;
 
 public class MessageService extends FirebaseMessagingService {
 
-    ReceivedMessage incomingMessage;
-    Map<String, User> userMap = new HashMap<>();
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-//        User user = remoteMessage.getData().getU;
+        Log.d("LOG", "onMessageReceived: ");
 
+        String email = remoteMessage.getData().get(EMAIL);
+        String message = remoteMessage.getData().get(MESSAGE);
+        long time = remoteMessage.getSentTime();
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        User user = gson.fromJson(remoteMessage.getData().get("user"), User.class);
+        User user;
 
-        incomingMessage = new ReceivedMessage(
-                user.getEmail(),
-                remoteMessage.getData().get("message"),
-                remoteMessage.getSentTime()
-        );
+        if (MessageApp.getInstance().getUserMap().isEmpty() || !MessageApp.getInstance().getUserMap().containsKey(email)) {
+            user = new User(email, generateColor());
+            MessageApp.getInstance().setUserMap(email, user);
+        } else {
+            user =  MessageApp.getInstance().getUserMap().get(email);
+        }
 
-        userMap.put(user.getEmail(), user);
+        ReceivedMessage receivedMessage = new ReceivedMessage(user, message, time);
+        MessageApp.getInstance().setMessageList(receivedMessage);
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(getSendIntent(incomingMessage));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(NOTIFY));
 
         if (!MessageApp.getInstance().isActivityVisible()) {
-            sendNotification(incomingMessage, this);
-            MessageApp.getInstance().setMessageList(incomingMessage);
+            sendNotification(receivedMessage, this);
         }
     }
 
-    @NonNull
-    private Intent getSendIntent(ReceivedMessage incomingMessage) {
-        Intent intent = new Intent("SEND_MESSAGE");
-        intent.putExtra(Constants.USERNAME, incomingMessage.getUserName());
-        intent.putExtra("message", incomingMessage.getMessage());
-        intent.putExtra("time", incomingMessage.getMessageTime());
-        intent.putExtra("map", (Serializable) userMap);
-        return intent;
+    private int generateColor() {
+        Random rnd = new Random();
+        int r = rnd.nextInt(COLOR_MASK);
+        int g = rnd.nextInt(COLOR_MASK);
+        int b = rnd.nextInt(COLOR_MASK);
+        return Color.argb(ALPHA, r, g, b);
     }
 
     private void sendNotification(ReceivedMessage incomingMessage, Context context) {
@@ -80,7 +80,6 @@ public class MessageService extends FirebaseMessagingService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
-        LocalBroadcastManager.getInstance(this).sendBroadcast(getSendIntent(incomingMessage));
     }
 }
 

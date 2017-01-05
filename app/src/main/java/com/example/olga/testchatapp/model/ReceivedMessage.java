@@ -6,22 +6,22 @@ package com.example.olga.testchatapp.model;
 
 public class ReceivedMessage {
 
-    private String userName;
+    private User user;
     private String message;
     private long messageTime;
 
-    public ReceivedMessage(String userName, String message, long messageTime) {
-        this.userName = userName;
+    public ReceivedMessage(User user, String message, long messageTime) {
+        this.user = user;
         this.message = message;
         this.messageTime = messageTime;
     }
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getMessage() {

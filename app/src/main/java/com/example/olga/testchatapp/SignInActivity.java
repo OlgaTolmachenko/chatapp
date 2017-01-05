@@ -26,28 +26,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        userAuth = new UserAuth(this);
+
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
         emailField = (EditText) findViewById(R.id.email);
         passwordField = (EditText) findViewById(R.id.password);
 
-        userAuth = new UserAuth(this);
-        userAuth.getCurrentFirebaseUser();
 
         btnSignIn.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        userAuth.addAuthStateListener();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        userAuth.removeAuthStateListener();
     }
 
     @Override

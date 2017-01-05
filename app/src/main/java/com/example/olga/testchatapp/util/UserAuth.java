@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.olga.testchatapp.MainActivity;
 import com.example.olga.testchatapp.SignInActivity;
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,20 +33,6 @@ public class UserAuth {
     public UserAuth(Activity context) {
         this.context = context;
         auth = FirebaseAuth.getInstance();
-    }
-
-    public void getCurrentFirebaseUser() {
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    context.startActivity(new Intent(context, MainActivity.class));
-                } else {
-                    Log.d(TAG, "onAuthStateChanged: signed_out");
-                }
-            }
-        };
     }
 
     public void signUp(String email, String password) {
@@ -84,15 +71,6 @@ public class UserAuth {
         };
     }
 
-    public void addAuthStateListener() {
-        auth.addAuthStateListener(authStateListener);
-    }
-
-    public void removeAuthStateListener() {
-        if (authStateListener != null) {
-            auth.removeAuthStateListener(authStateListener);
-        }
-    }
     private boolean hasEmailAndPassword(String email, String password) {
         return !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password);
     }

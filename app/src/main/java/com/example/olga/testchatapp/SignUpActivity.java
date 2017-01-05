@@ -13,6 +13,7 @@ import com.example.olga.testchatapp.util.UserAuth;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static com.example.olga.testchatapp.util.Constants.EMAIL;
 import static com.example.olga.testchatapp.util.Constants.USERNAME;
 
 /**
@@ -34,34 +35,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        userAuth = new UserAuth(this);
+
         userNameField = (EditText) findViewById(R.id.userName);
         emailField = (EditText) findViewById(R.id.email);
         passwordField = (EditText) findViewById(R.id.password);
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
 
-        userAuth = new UserAuth(this);
-        userAuth.getCurrentFirebaseUser();
-
         userSettings = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = userSettings.edit();
         editor.putString(USERNAME, userNameField.getText().toString().trim());
-        editor.putString("email", emailField.getText().toString().trim());
+        editor.putString(EMAIL, emailField.getText().toString().trim());
         editor.commit();
 
         btnSignUp.setOnClickListener(this);
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        userAuth.addAuthStateListener();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        userAuth.removeAuthStateListener();
     }
 
     @Override

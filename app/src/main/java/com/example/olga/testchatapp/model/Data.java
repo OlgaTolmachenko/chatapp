@@ -11,12 +11,12 @@ public class Data {
     @SerializedName("message")
     private String message;
 
-    @SerializedName("user")
-    private User user;
+    @SerializedName("email")
+    private String email;
 
-    public Data(String message, User user) {
+    public Data(String message, String email) {
         this.message = message;
-        this.user = user;
+        this.email = email;
     }
 
     public String getMessage() {
@@ -27,11 +27,11 @@ public class Data {
         this.message = message;
     }
 
-    public User getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
