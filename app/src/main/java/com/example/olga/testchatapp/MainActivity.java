@@ -63,25 +63,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onReceive(Context context, Intent intent) {
 
         ReceivedMessage currentMessage = getReceivedMessage(intent);
-//        User currentUser = new User(currentMessage.getUserName(), generateColor());
 
-//        if (userMap.isEmpty()) {
-//            userMap.put(currentUser.getEmail(), currentUser);
-//        }
-//
-//        if (!userMap.containsKey(currentMessage.getUserName())) {
-//            userMap.put(currentMessage.getUserName(), currentUser);
-//        }
-            if (intent.getExtras() != null) {
-                userMap = (HashMap<String, User>) intent.getSerializableExtra("map");
-            }
+        if (intent.getExtras() != null) {
+            userMap = (HashMap<String, User>) intent.getSerializableExtra("map");
+        }
 
-            if (MessageApp.getInstance().isActivityVisible()) {
-                MessageApp.getInstance().setMessageList(currentMessage);
-            }
-            messageAdapter.setUserMap(userMap);
-            messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
-            messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
+        if (MessageApp.getInstance().isActivityVisible()) {
+            MessageApp.getInstance().setMessageList(currentMessage);
+        }
+        messageAdapter.setUserMap(userMap);
+        messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
+        messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
         }
     };
 

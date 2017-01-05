@@ -64,9 +64,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         View itemView = holder.itemViewChild;
         itemView.setBackgroundResource(R.drawable.rounded_corners);
         GradientDrawable drawable = (GradientDrawable) itemView.getBackground();
-//        if (!userMap.isEmpty()) {
-            drawable.setColor(userMap.get(currentEmail).getColor());
-//        }
+        drawable.setColor(userMap.get(currentEmail).getColor());
         holder.userName.setText(messageList.get(position).getUserName());
         holder.message.setText(messageList.get(position).getMessage());
         holder.time.setText(new SimpleDateFormat(DATE_FORMAT).format(messageList.get(position).getMessageTime()));
