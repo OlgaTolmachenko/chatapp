@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String email;
     private EditText messageField;
     private UserAuth userAuth;
+    private User user;
 
     HashMap<String, User> userMap = new HashMap<>();
 
@@ -63,13 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ReceivedMessage currentMessage = getReceivedMessage(intent);
         User currentUser = new User(currentMessage.getUserName(), generateColor());
 
-//        if (userMap.isEmpty()) {
-//            userMap.put(currentUser.getEmail(), currentUser);
-//        }
-//
-//        if (!userMap.containsKey(currentMessage.getUserName())) {
-//            userMap.put(currentMessage.getUserName(), currentUser);
-//        }
+        if (userMap.isEmpty()) {
+            userMap.put(currentUser.getEmail(), currentUser);
+        }
+
+        if (!userMap.containsKey(currentMessage.getUserName())) {
+            userMap.put(currentMessage.getUserName(), currentUser);
+        }
 
         if (MessageApp.getInstance().isActivityVisible()) {
             MessageApp.getInstance().setMessageList(currentMessage);
@@ -116,10 +117,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         userAuth = new UserAuth(this);
 
-        messageField = (EditText) findViewById(R.id.messageField);
         if (isUserExists()) {
             email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         }
+
+        user = new User(email, generateColor());
+
+        messageField = (EditText) findViewById(R.id.messageField);
+
 
         messageRecycler = (RecyclerView) findViewById(R.id.messageRecycler);
         messageLM = new LinearLayoutManager(this);
@@ -158,7 +163,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStop() {
         super.onStop();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onStop();
         MessageApp.getInstance().activityPaused();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onStop();
+        MessageApp.getInstance().activityResumed();
     }
 
     @Override
@@ -177,7 +193,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendMessage() {
-        Message message = new Message(TOPIC, new Data(email, messageField.getText().toString()), new User(email, generateColor()));
+
+        Message message = new Message(TOPIC, new Data(messageField.getText().toString(), user));
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC);
         new ChatNetworking().sendMessage(message);
     }

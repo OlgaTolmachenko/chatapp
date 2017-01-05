@@ -8,23 +8,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-    @SerializedName("userName")
-    private String userName;
-
     @SerializedName("message")
     private String message;
 
-    public Data(String userName, String message) {
-        this.userName = userName;
+    @SerializedName("user")
+    private User user;
+
+    public Data(String message, User user) {
         this.message = message;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+        this.user = user;
     }
 
     public String getMessage() {
@@ -33,5 +25,13 @@ public class Data {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

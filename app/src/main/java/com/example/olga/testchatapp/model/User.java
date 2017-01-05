@@ -1,5 +1,7 @@
 package com.example.olga.testchatapp.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Objects;
 
 /**
@@ -8,7 +10,10 @@ import java.util.Objects;
 
 public class User {
 
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("color")
     private int color;
 
     public User(String email, int color) {

@@ -9,9 +9,14 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.NotificationCompat;
 
 import com.example.olga.testchatapp.model.ReceivedMessage;
+import com.example.olga.testchatapp.model.User;
 import com.example.olga.testchatapp.util.Constants;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MessageService extends FirebaseMessagingService {
 
@@ -21,19 +26,17 @@ public class MessageService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
+//        User user = remoteMessage.getData().getU;
+
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        User user = gson.fromJson(remoteMessage.getData().get("user"), User.class);
+
         incomingMessage = new ReceivedMessage(
-                remoteMessage.getData().get("userName"),
+                remoteMessage.getData().get("user"),
                 remoteMessage.getData().get("message"),
                 remoteMessage.getSentTime()
         );
-
-        if (userMap.isEmpty()) {
-            userMap.put(currentUser.getEmail(), currentUser);
-        }
-
-        if (!userMap.containsKey(currentMessage.getUserName())) {
-            userMap.put(currentMessage.getUserName(), currentUser);
-        }
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(getSendIntent(incomingMessage));
 
@@ -56,7 +59,7 @@ public class MessageService extends FirebaseMessagingService {
 
     private void sendNotification(ReceivedMessage incomingMessage, Context context) {
         android.support.v4.app.NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_email_white_18dp)
+                .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
                 .setContentTitle("TestChatApp")
                 .setContentText(incomingMessage.getMessage())
                 .setAutoCancel(true);

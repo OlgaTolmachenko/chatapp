@@ -14,12 +14,9 @@ public class Message {
     @SerializedName("data")
     private Data data;
 
-    private User user;
-
-    public Message(String to, Data data, User user) {
+    public Message(String to, Data data) {
         this.to = to;
         this.data = data;
-        this.user = user;
     }
 
     public String getTo() {
@@ -36,13 +33,5 @@ public class Message {
 
     public void setData(Data data) {
         this.data = data;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
