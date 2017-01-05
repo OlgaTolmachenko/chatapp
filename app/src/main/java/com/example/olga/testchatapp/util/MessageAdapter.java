@@ -14,6 +14,7 @@ import com.example.olga.testchatapp.model.User;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.example.olga.testchatapp.util.Constants.DATE_FORMAT;
 
@@ -27,13 +28,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public static final int TYPE_OTHERS = 1;
     private List<ReceivedMessage> messageList;
     private String myUserName;
-    private HashMap<String, User> userMap;
+    private Map<String, User> userMap;
     private String currentEmail;
 
-    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName, HashMap<String, User> userMap) {
+    public void setUserMap(Map<String, User> userMap) {
+        this.userMap = userMap;
+    }
+
+    public MessageAdapter(List<ReceivedMessage> messageList, String myUserName) {
         this.messageList = messageList;
         this.myUserName = myUserName;
-        this.userMap = userMap;
+        userMap = new HashMap<>();
     }
 
     @Override
@@ -59,9 +64,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         View itemView = holder.itemViewChild;
         itemView.setBackgroundResource(R.drawable.rounded_corners);
         GradientDrawable drawable = (GradientDrawable) itemView.getBackground();
-        if (!userMap.isEmpty()) {
+//        if (!userMap.isEmpty()) {
             drawable.setColor(userMap.get(currentEmail).getColor());
-        }
+//        }
         holder.userName.setText(messageList.get(position).getUserName());
         holder.message.setText(messageList.get(position).getMessage());
         holder.time.setText(new SimpleDateFormat(DATE_FORMAT).format(messageList.get(position).getMessageTime()));

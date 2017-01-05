@@ -29,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import static com.example.olga.testchatapp.util.Constants.COLOR_MASK;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private UserAuth userAuth;
     private User user;
 
-    HashMap<String, User> userMap = new HashMap<>();
+    Map<String, User> userMap;
 
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -62,22 +63,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onReceive(Context context, Intent intent) {
 
         ReceivedMessage currentMessage = getReceivedMessage(intent);
-        User currentUser = new User(currentMessage.getUserName(), generateColor());
+//        User currentUser = new User(currentMessage.getUserName(), generateColor());
 
-        if (userMap.isEmpty()) {
-            userMap.put(currentUser.getEmail(), currentUser);
-        }
+//        if (userMap.isEmpty()) {
+//            userMap.put(currentUser.getEmail(), currentUser);
+//        }
+//
+//        if (!userMap.containsKey(currentMessage.getUserName())) {
+//            userMap.put(currentMessage.getUserName(), currentUser);
+//        }
+            if (intent.getExtras() != null) {
+                userMap = (HashMap<String, User>) intent.getSerializableExtra("map");
+            }
 
-        if (!userMap.containsKey(currentMessage.getUserName())) {
-            userMap.put(currentMessage.getUserName(), currentUser);
-        }
-
-        if (MessageApp.getInstance().isActivityVisible()) {
-            MessageApp.getInstance().setMessageList(currentMessage);
-        }
-
-        messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
-        messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
+            if (MessageApp.getInstance().isActivityVisible()) {
+                MessageApp.getInstance().setMessageList(currentMessage);
+            }
+            messageAdapter.setUserMap(userMap);
+            messageAdapter.notifyItemInserted(MessageApp.getInstance().getMessageList().size());
+            messageRecycler.smoothScrollToPosition(MessageApp.getInstance().getMessageList().size());
         }
     };
 
@@ -131,8 +135,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messageRecycler.setLayoutManager(messageLM );
         messageAdapter = new MessageAdapter(
                 MessageApp.getInstance().getMessageList(),
-                email,
-                userMap);
+                email);
 
         messageRecycler.setAdapter(messageAdapter);
         messageRecycler.addItemDecoration(new ChatItemsDecor(

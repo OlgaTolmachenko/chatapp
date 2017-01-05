@@ -16,11 +16,16 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MessageService extends FirebaseMessagingService {
 
     ReceivedMessage incomingMessage;
+    Map<String, User> userMap = new HashMap<>();
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -33,18 +38,18 @@ public class MessageService extends FirebaseMessagingService {
         User user = gson.fromJson(remoteMessage.getData().get("user"), User.class);
 
         incomingMessage = new ReceivedMessage(
-                remoteMessage.getData().get("user"),
+                user.getEmail(),
                 remoteMessage.getData().get("message"),
                 remoteMessage.getSentTime()
         );
+
+        userMap.put(user.getEmail(), user);
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(getSendIntent(incomingMessage));
 
         if (!MessageApp.getInstance().isActivityVisible()) {
             sendNotification(incomingMessage, this);
             MessageApp.getInstance().setMessageList(incomingMessage);
-
-
         }
     }
 
@@ -54,6 +59,7 @@ public class MessageService extends FirebaseMessagingService {
         intent.putExtra(Constants.USERNAME, incomingMessage.getUserName());
         intent.putExtra("message", incomingMessage.getMessage());
         intent.putExtra("time", incomingMessage.getMessageTime());
+        intent.putExtra("map", (Serializable) userMap);
         return intent;
     }
 
