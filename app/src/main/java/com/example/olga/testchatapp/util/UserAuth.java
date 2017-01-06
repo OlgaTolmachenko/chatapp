@@ -4,17 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.olga.testchatapp.MainActivity;
-import com.example.olga.testchatapp.SignInActivity;
-import com.firebase.client.Firebase;
+import com.example.olga.testchatapp.activity.MainActivity;
+import com.example.olga.testchatapp.activity.SignInActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
  * Created by olga on 23.12.16.
@@ -23,12 +23,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class UserAuth {
 
     private final String ENTER_DATA = "Enter data";
-    private final String TAG = "auth";
 
     private FirebaseAuth auth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private Activity context;
-    private FirebaseUser user;
 
     public UserAuth(Activity context) {
         this.context = context;
@@ -77,6 +74,6 @@ public class UserAuth {
 
     public void logout() {
         FirebaseAuth.getInstance().signOut();
-        context.startActivity(new Intent(context, SignInActivity.class));
+        context.startActivity(new Intent(context, SignInActivity.class).setFlags(FLAG_ACTIVITY_CLEAR_TASK|FLAG_ACTIVITY_NEW_TASK));
     }
 }

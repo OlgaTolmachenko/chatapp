@@ -1,6 +1,5 @@
 package com.example.olga.testchatapp.util;
 
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,15 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.olga.testchatapp.MessageApp;
 import com.example.olga.testchatapp.R;
 import com.example.olga.testchatapp.model.ReceivedMessage;
-import com.example.olga.testchatapp.model.User;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static com.example.olga.testchatapp.util.Constants.DATE_FORMAT;
 

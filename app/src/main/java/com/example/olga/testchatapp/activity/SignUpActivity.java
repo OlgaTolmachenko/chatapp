@@ -1,17 +1,14 @@
-package com.example.olga.testchatapp;
+package com.example.olga.testchatapp.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.olga.testchatapp.R;
 import com.example.olga.testchatapp.util.UserAuth;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import static com.example.olga.testchatapp.util.Constants.EMAIL;
 import static com.example.olga.testchatapp.util.Constants.USERNAME;
